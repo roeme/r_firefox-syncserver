@@ -12,6 +12,14 @@ class r_firefox_syncserver(
   Enum['nginx'] $webserver         = 'nginx',
   Enum['unix','tcp'] $socktype     = 'unix',
   String        $bind              = 'unix:/tmp/syncserver.sock',
+  Boolean       $manage_init       = true,
+  Boolean       $use_sqlite        = true,
+  Optional[String] $sqluri,
+  Boolean       $allow_new_users   = true,
   ) {
-  # resources
+
+  if ($use_sqlite == false) && $sqluri = undef {
+    fail('Must provide an $sqluri if not using sqlite')
+  }
+
 }

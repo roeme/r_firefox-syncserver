@@ -2,5 +2,16 @@
 #
 #
 class r_firefox_syncserver::ss_instance::debian {
-  # resources
+  if $r_firefox_syncserver::manage_init == true {
+    file { '/etc/systemd/system/syncserver.service':
+      ensure  => file,
+      content => template('r_firefox_syncserver/syncserver.service.erb')
+    }
+  }
+  ensure_packages([
+    'python-dev',
+    'git-core',
+    'python-virtualenv',
+    'g++'
+    ])
 }

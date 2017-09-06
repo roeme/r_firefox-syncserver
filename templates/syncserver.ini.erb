@@ -1,0 +1,21 @@
+[server:main]
+use = egg:gunicorn
+<% if scope['::r_firefox_syncserver::socktype'] == 'unix' -%>
+bind = <%= scope['::r_firefox_syncserver::bind'] -%>
+<% else -%>
+host = 0.0.0.0
+port = 5000
+<% end -%>
+workers = 2
+timeout = 30
+#forwarded_allow_ips = *
+
+[app:main]
+use = egg:syncserver
+
+[syncserver]
+public_url = <%= scope['::r_firefox_syncserver::public_url'] %>
+sqluri = <%= @t_sqluri %>
+secret = "<%= @t_secret %>"
+allow_new_users = <%= scope['::r_firefox_syncserver::allow_new_users'] %>
+force_wsgi_environ = false

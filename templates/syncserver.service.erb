@@ -1,0 +1,13 @@
+[Unit]
+Description=Firefox Sync Server
+After=network.target auditd.service
+Before=<%= scope['::r_firefox-syncserver::webserver'] %>.service
+
+[Service]
+Type=simple
+User=<%= scope['::r_firefox-syncserver::user'] %>
+WorkingDirectory=<%= scope['::r_firefox-syncserver::homedir'] %>
+ExecStart=/usr/bin/make serve
+
+[Install]
+WantedBy=multi-user.target
