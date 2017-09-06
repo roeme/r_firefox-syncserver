@@ -1,7 +1,7 @@
 # Class: r_firefox-syncserver
 #
 #
-class r_firefox-syncserver(
+class r_firefox_syncserver(
   String        $version           = 'master',
   String        $user              = 'syncserver',
   Boolean       $manage_user       = true,
